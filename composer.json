@@ -1,0 +1,24 @@
+{
+  "name": "campaignrabbit/woocommerce",
+  "description": "Plugin to integrate Campaignrabbit in woocommerce",
+  "require": {
+    "cmb2/cmb2": "^2.5.1",
+    "mashape/unirest-php": "3.*",
+    "prospress/action-scheduler": "2.*"
+  },
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "Crifw\\": "",
+      "Crifw\\Campaignrabbit\\": "src/",
+      "Crifw\\Campaignrabbit\\Admin\\": "src/admin/",
+      "Crifw\\Campaignrabbit\\Library\\": "src/library/"
+    },
+    "files": [
+      "vendor/cmb2/cmb2/init.php",
+      "src/admin/fields/cmb-field-campaignrabbit-app/cmb-field-campaignrabbit-app.php",
+      "src/admin/fields/cmb-field-campaignrabbit-logs/cmb-field-campaignrabbit-logs.php",
+      "src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php"
+    ]
+  }
+}
