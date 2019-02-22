@@ -6,7 +6,7 @@
  * Author: Cartrabbit
  * Author URI: https://www.campaignrabbit.com
  * Version: 1.0.0
- * Text Domain: Cartrabbit-woocommerce
+ * Text Domain: campaignrabbit-for-woocommerce
  * Domain Path: /i18n/languages/
  * Plugin URI: https://www.campaignrabbit.com
  * Requires at least: 4.6.1
@@ -44,7 +44,7 @@ if (!defined('CRIFW_PLUGIN_PREFIX'))
 /**
  * Set Plugin log path
  */
-if (!defined('RNOC_BASE_FILE')) {
+if (!defined('CRIFW_LOG_FILE_PATH')) {
     $path = ABSPATH . 'campaignrabbit.log';
     define('CRIFW_LOG_FILE_PATH', $path);
 }
