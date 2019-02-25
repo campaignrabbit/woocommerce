@@ -173,7 +173,7 @@ class RunCampaign
      */
     function processUpdateOrderQueue($order_id)
     {
-        if (empty($order_details))
+        if (empty($order_id))
             return false;
         $order = $this->wc_functions->getOrder($order_id);
         if (!empty($order)) {
@@ -357,7 +357,7 @@ class RunCampaign
             'order_items' => $items,
             'shipping' => $shipping,
             'billing' => $billing,
-            'status' => $this->wc_functions->getOrderStatus($order),
+            'status' => strtolower($this->wc_functions->getOrderStatus($order)),
             'created_at' => $this->wc_functions->getOrderCreatedDate($order),
             'updated_at' => $this->wc_functions->getOrderModifiedDate($order),
             'customer_created_at' => (isset($user->user_registered) && !empty($user->user_registered)) ? $user->user_registered : current_time('mysql'),
