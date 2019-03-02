@@ -13,6 +13,7 @@ class RunCampaign
     {
         $this->admin = new Settings();
         $this->wc_functions = new WcFunctions();
+        require_once (CRIFW_BASE_DIR.'/vendor/prospress/action-scheduler/action-scheduler.php');
     }
 
     /**
@@ -427,34 +428,94 @@ class RunCampaign
      */
     function newUserCreated($user_id)
     {
-        if (isset($_POST['email']) && !empty($_POST['email']) && !empty($user_id)) {
-            $user_role = (isset($_POST['role']) && !empty($_POST['role'])) ? (is_array($_POST['role'])) ? implode('|', $_POST['role']) : $_POST['role'] : 'guest';
-            $first_name = $last_name = "";
-            if (isset($_POST['first_name']) && !empty($_POST['first_name'])) {
-                $first_name = $_POST['first_name'];
+
+
+        $user = new \stdClass();
+        if (!empty($user_id) && is_numeric($user_id)) {
+            $user = get_userdata($user_id);
+        }
+
+
+
+        if (isset($user->ID) && $user->ID > 0) {
+            $post_customer = $this->create_registered_user($user);
+        } else {
+            $post_customer = $this->create_guest_user();
+        }
+
+        if($post_customer) {
+            as_schedule_single_action(time(), 'campaignrabbit_process_customer_queues', array('data' => $post_customer, 'validation' => true));
+        }
+
+    }
+
+    public function create_registered_user($user) {
+        $post_customer = false;
+        $first_name = get_user_meta($user->ID, 'first_name', true);
+        $last_name = get_user_meta($user->ID, 'last_name', true);
+        if(empty($first_name) && empty($last_name)) {
+            $name = $user->user_login;
+        }else {
+            $name=$first_name.' '.$last_name;
+        }
+        $roles = '';
+        if(isset($user->roles)) {
+            if(is_array($user->roles)) {
+                $roles = implode(' | ', $user->roles);
+            }elseif(is_string($user->roles)) {
+                $roles = $user->roles;
             }
-            if (isset($_POST['last_name']) && !empty($_POST['last_name'])) {
-                $last_name = $_POST['last_name'];
+        }
+        $meta_array = array(array(
+            'meta_key' => 'CUSTOMER_GROUP',
+            'meta_value' => $roles,
+            'meta_options' => ''
+        ));
+        $post_customer = array(
+            'email' => $user->user_email,
+            'name' => $name,
+            'created_at'=>current_time( 'mysql' ),
+            // 'updated_at'=>current_time( 'mysql' ),
+            'meta' => $meta_array
+        );
+        return $post_customer;
+    }
+
+    public function create_guest_user() {
+        $post_customer = false;
+        if(
+            (isset($_POST['email']) && !empty($_POST['email']) ) ||
+            (isset($_POST['billing_email']) || !empty($_POST['billing_email']))
+        ) {
+            $first_name = isset($_POST['first_name']) ? $_POST['first_name'] : '';
+            $last_name = isset($_POST['last_name']) ? $_POST['last_name'] : '';
+            $name = $first_name . ' ' . $last_name;
+            if ($name == ' ') {
+                $name = isset($_POST['user_login']) ? $_POST['user_login'] : '';
             }
-            if (empty($first_name) && empty($last_name)) {
-                $name = (isset($_POST['user_login']) && !empty($_POST['user_login'])) ? $_POST['user_login'] : '';
-            } else {
-                $name = $first_name . ' ' . $last_name;
-            }
-            $meta = array(array(
+            $meta_array = array(array(
                 'meta_key' => 'CUSTOMER_GROUP',
-                'meta_value' => $user_role,
+                'meta_value' => isset($_POST['role']) ? $_POST['role'] : '',
                 'meta_options' => ''
             ));
-            $customer_details = array(
-                'email' => $_POST['email'],
+            $post_customer = array(
+                'email' => isset($_POST['email']) ? $_POST['email'] : '',
                 'name' => $name,
                 'created_at' => current_time('mysql'),
-                'updated_at' => current_time('mysql'),
-                'meta' => $meta
+                // 'updated_at'=>current_time( 'mysql' ),
+                'meta' => $meta_array
             );
-            as_schedule_single_action(time(), 'campaignrabbit_process_customer_queues', array('data' => $customer_details, 'validation' => true));
+            if (isset($_POST['createaccount']) ? $_POST['createaccount'] : false) {
+                $post_customer = array(
+                    'email' => isset($_POST['billing_email']) ? $_POST['billing_email'] : '',
+                    'name' => $name,
+                    'created_at' => current_time('mysql'),
+                    //   'updated_at'=>current_time( 'mysql' ),
+                    'meta' => $meta_array
+                );
+            }
         }
+        return $post_customer;
     }
 
     /**

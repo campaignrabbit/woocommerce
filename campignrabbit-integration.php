@@ -35,6 +35,11 @@ if (!defined('CRIFW_VERSION'))
  */
 if (!defined('CRIFW_BASE_FILE'))
     define('CRIFW_BASE_FILE', plugin_basename(__FILE__));
+
+if (!defined('CRIFW_BASE_DIR'))
+    define('CRIFW_BASE_DIR', __DIR__);
+
+
 /**
  * Set Plugin prefix
  */
