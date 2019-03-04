@@ -13,7 +13,6 @@ class RunCampaign
     {
         $this->admin = new Settings();
         $this->wc_functions = new WcFunctions();
-        require_once (CRIFW_BASE_DIR.'/vendor/prospress/action-scheduler/action-scheduler.php');
     }
 
     /**
@@ -436,33 +435,33 @@ class RunCampaign
         }
 
 
-
         if (isset($user->ID) && $user->ID > 0) {
             $post_customer = $this->create_registered_user($user);
         } else {
             $post_customer = $this->create_guest_user();
         }
 
-        if($post_customer) {
+        if ($post_customer) {
             as_schedule_single_action(time(), 'campaignrabbit_process_customer_queues', array('data' => $post_customer, 'validation' => true));
         }
 
     }
 
-    public function create_registered_user($user) {
+    public function create_registered_user($user)
+    {
         $post_customer = false;
         $first_name = get_user_meta($user->ID, 'first_name', true);
         $last_name = get_user_meta($user->ID, 'last_name', true);
-        if(empty($first_name) && empty($last_name)) {
+        if (empty($first_name) && empty($last_name)) {
             $name = $user->user_login;
-        }else {
-            $name=$first_name.' '.$last_name;
+        } else {
+            $name = $first_name . ' ' . $last_name;
         }
         $roles = '';
-        if(isset($user->roles)) {
-            if(is_array($user->roles)) {
+        if (isset($user->roles)) {
+            if (is_array($user->roles)) {
                 $roles = implode(' | ', $user->roles);
-            }elseif(is_string($user->roles)) {
+            } elseif (is_string($user->roles)) {
                 $roles = $user->roles;
             }
         }
@@ -474,17 +473,18 @@ class RunCampaign
         $post_customer = array(
             'email' => $user->user_email,
             'name' => $name,
-            'created_at'=>current_time( 'mysql' ),
+            'created_at' => current_time('mysql'),
             // 'updated_at'=>current_time( 'mysql' ),
             'meta' => $meta_array
         );
         return $post_customer;
     }
 
-    public function create_guest_user() {
+    public function create_guest_user()
+    {
         $post_customer = false;
-        if(
-            (isset($_POST['email']) && !empty($_POST['email']) ) ||
+        if (
+            (isset($_POST['email']) && !empty($_POST['email'])) ||
             (isset($_POST['billing_email']) || !empty($_POST['billing_email']))
         ) {
             $first_name = isset($_POST['first_name']) ? $_POST['first_name'] : '';

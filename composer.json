@@ -4,6 +4,7 @@
   "require": {
     "cmb2/cmb2": "^2.5.1",
     "mashape/unirest-php": "3.*",
+    "yahnis-elsts/plugin-update-checker": "^4.5",
     "prospress/action-scheduler": "2.*"
   },
   "minimum-stability": "stable",
@@ -16,6 +17,8 @@
     },
     "files": [
       "vendor/cmb2/cmb2/init.php",
+      "vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php",
+      "vendor/prospress/action-scheduler/action-scheduler.php",
       "src/admin/fields/cmb-field-campaignrabbit-app/cmb-field-campaignrabbit-app.php",
       "src/admin/fields/cmb-field-campaignrabbit-logs/cmb-field-campaignrabbit-logs.php",
       "src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php"

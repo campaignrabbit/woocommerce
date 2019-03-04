@@ -24,8 +24,12 @@ class Main
     {
         $this->crifw = ($this->crifw == NULL) ? new RunCampaign() : $this->crifw;
         $this->activateEvents();
+        $this->checkForPluginUpdates();
     }
 
+    /**
+     * Activate the required events
+     */
     function activateEvents()
     {
         //Check for dependencies
@@ -61,6 +65,14 @@ class Main
         add_action('profile_update', array($this->crifw, 'oldUserUpdated'), 10, 2);
         //Enqueue scripts
         add_action('wp_enqueue_scripts', array($this->crifw, 'enqueueScripts'));
+    }
+
+    /**
+     * Check any updates found
+     */
+    function checkForPluginUpdates()
+    {
+        \Puc_v4_Factory::buildUpdateChecker('https://github.com/campaignrabbit/woocommerce', __FILE__, 'campaignrabbit-for-woocommerce');
     }
 
     /**
