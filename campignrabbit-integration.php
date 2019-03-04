@@ -5,7 +5,7 @@
  * Description: Campaignrabbit integration for woocommerce
  * Author: Cartrabbit
  * Author URI: https://www.campaignrabbit.com
- * Version: 1.0.0
+ * Version: 1.0.1
  * Text Domain: campaignrabbit-for-woocommerce
  * Domain Path: /i18n/languages/
  * Plugin URI: https://www.campaignrabbit.com
