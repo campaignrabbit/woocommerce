@@ -436,9 +436,9 @@ class RunCampaign
 
 
         if (isset($user->ID) && $user->ID > 0) {
-            $post_customer = $this->create_registered_user($user);
+            $post_customer = $this->createRegisteredUser($user);
         } else {
-            $post_customer = $this->create_guest_user();
+            $post_customer = $this->createGuestUser();
         }
 
         if ($post_customer) {
@@ -447,9 +447,13 @@ class RunCampaign
 
     }
 
-    public function create_registered_user($user)
+    /**
+     * Create registered user
+     * @param $user
+     * @return array
+     */
+    public function createRegisteredUser($user)
     {
-        $post_customer = false;
         $first_name = get_user_meta($user->ID, 'first_name', true);
         $last_name = get_user_meta($user->ID, 'last_name', true);
         if (empty($first_name) && empty($last_name)) {
@@ -480,7 +484,11 @@ class RunCampaign
         return $post_customer;
     }
 
-    public function create_guest_user()
+    /**
+     * Create guest user
+     * @return array|bool
+     */
+    public function createGuestUser()
     {
         $post_customer = false;
         if (

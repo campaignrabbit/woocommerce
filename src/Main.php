@@ -72,7 +72,7 @@ class Main
      */
     function checkForPluginUpdates()
     {
-        \Puc_v4_Factory::buildUpdateChecker('https://github.com/campaignrabbit/woocommerce', __FILE__, 'campaignrabbit-for-woocommerce');
+        \Puc_v4_Factory::buildUpdateChecker('https://github.com/campaignrabbit/woocommerce', CRIFW_PLUGIN_FILE);
     }
 
     /**

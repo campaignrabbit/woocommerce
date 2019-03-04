@@ -28,7 +28,7 @@ if (!defined('CRIFW_TEXT_DOMAIN'))
  * Current version of our app
  */
 if (!defined('CRIFW_VERSION'))
-    define('CRIFW_VERSION', '1.0.0');
+    define('CRIFW_VERSION', '1.0.1');
 
 /**
  * Set base file URL
@@ -38,6 +38,12 @@ if (!defined('CRIFW_BASE_FILE'))
 
 if (!defined('CRIFW_BASE_DIR'))
     define('CRIFW_BASE_DIR', __DIR__);
+
+/**
+ * Setup the plugin file
+ */
+if (!defined('CRIFW_PLUGIN_FILE'))
+    define('CRIFW_PLUGIN_FILE', __FILE__);
 
 
 /**
