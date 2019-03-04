@@ -259,11 +259,11 @@ class WcFunctions
     {
         if (method_exists($order, 'get_status')) {
             $order_status = $order->get_status();
-            if (in_array($order_status, array('on-hold')))
+            if (in_array($order_status, array('on-hold'))) {
                 return 'unpaid';
-            else if (in_array($order_status, array('refunded')))
+            } elseif (in_array($order_status, array('refunded'))) {
                 return 'cancelled';
-            elseif(in_array($order_status, array('processing'))) {
+            } elseif (in_array($order_status, array('processing'))) {
                 return 'paid';
             } else {
                 return $order_status;
