@@ -37,15 +37,6 @@ class RunCampaign
     }
 
     /**
-     * print the app id
-     */
-    function campaignrabbitAnalytics()
-    {
-        echo $this->admin->getAppID();
-        die;
-    }
-
-    /**
      * Add required scripts
      */
     function enqueueScripts()
@@ -56,11 +47,24 @@ class RunCampaign
             if (isset($current_user->user_email) && !empty($current_user->user_email)) {
                 $user_email = $current_user->user_email;
             }
-            $dir = plugin_dir_url(__FILE__);
-            $path = 'assets/js/campaignrabbit.js';
-            $file = $dir . $path;
-            wp_enqueue_script('campaignrabbit-for-woocommerce', $file, array('jquery'), CRIFW_VERSION, true);
-            wp_localize_script('campaignrabbit-for-woocommerce', 'CRAjax', array('ajaxurl' => admin_url('admin-ajax.php'), 'user_email' => $user_email));
+            $app_id = $this->admin->getAppId();
+            ?>
+            <script type="text/javascript">
+                window.campaignrabbit = {
+                    app_id: "<?php echo $app_id ?>"
+                };
+                <?php if (!empty($user_email)) { ?>
+                window.campaignrabbit.email = "<?php echo $user_email; ?>";
+                <?php } ?>
+                !function (e, t, n, p, o, a, i, s, c) {
+                    e[o] || (i = e[o] = function () {
+                        i.process ? i.process.apply(i, arguments) : i.queue.push(arguments)
+                    }, i.queue = [], i.t = 1 * new Date, s = t.createElement(n),
+                        s.async = 1, s.src = p + "?t=" + Math.ceil(new Date / a) * a, c = t.getElementsByTagName(n)[0], c.parentNode.insertBefore(s, c))
+                }(window, document, "script", "https://cdn.campaignrabbit.com/campaignrabbit.analytics.js", "rabbit", 1), rabbit("init", "<?php echo $app_id ?>"), rabbit("event", "pageload");
+
+            </script>
+            <?php
         }
     }
 
