@@ -41,7 +41,7 @@ class RunCampaign
      */
     function enqueueScripts()
     {
-        if ($this->admin->isAppConnected()) {
+        if ($this->admin->isAppConnected() && !is_admin()) {
             $current_user = wp_get_current_user();
             $user_email = '';
             if (isset($current_user->user_email) && !empty($current_user->user_email)) {
