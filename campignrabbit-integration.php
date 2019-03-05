@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin name: Campaignrabbit for woocommerce
+ * Plugin name: Campaignrabbit for WooCommerce
  * Plugin URI: https://www.campaignrabbit.com
- * Description: Campaignrabbit integration for woocommerce
+ * Description: Campaignrabbit integration for WooCommerce
  * Author: Cartrabbit
  * Author URI: https://www.campaignrabbit.com
  * Version: 1.0.1
