@@ -63,7 +63,7 @@ class Main
         add_action('user_register', array($this->crifw, 'newUserCreated'), 10, 1);
         add_action('profile_update', array($this->crifw, 'oldUserUpdated'), 10, 2);
         //Enqueue scripts
-        add_action('wp_enqueue_scripts', array($this->crifw, 'enqueueScripts'));
+        add_action('wp_footer', array($this->crifw, 'enqueueScripts'));
     }
 
     /**
