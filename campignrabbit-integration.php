@@ -5,7 +5,7 @@
  * Description: Campaignrabbit integration for WooCommerce
  * Author: Cartrabbit
  * Author URI: https://www.campaignrabbit.com
- * Version: 1.0.1
+ * Version: 1.0.2
  * Text Domain: campaignrabbit-for-woocommerce
  * Domain Path: /i18n/languages/
  * Plugin URI: https://www.campaignrabbit.com
@@ -13,45 +13,39 @@
  * WC requires at least: 2.5
  * WC tested up to: 3.5
  */
-
-
 if (!defined('ABSPATH')) exit;
-
-
 /**
  * Define the text domain
  */
 if (!defined('CRIFW_TEXT_DOMAIN'))
     define('CRIFW_TEXT_DOMAIN', 'campaignrabbit-for-woocommerce');
-
 /**
  * Current version of our app
  */
 if (!defined('CRIFW_VERSION'))
-    define('CRIFW_VERSION', '1.0.1');
-
+    define('CRIFW_VERSION', '1.0.2');
 /**
  * Set base file URL
  */
 if (!defined('CRIFW_BASE_FILE'))
     define('CRIFW_BASE_FILE', plugin_basename(__FILE__));
-
 if (!defined('CRIFW_BASE_DIR'))
     define('CRIFW_BASE_DIR', __DIR__);
-
 /**
  * Setup the plugin file
  */
 if (!defined('CRIFW_PLUGIN_FILE'))
     define('CRIFW_PLUGIN_FILE', __FILE__);
-
-
 /**
  * Set Plugin prefix
  */
 if (!defined('CRIFW_PLUGIN_PREFIX'))
     define('CRIFW_PLUGIN_PREFIX', 'crifw_');
-
+/**
+ * Set plugin environment
+ */
+if (!defined('CRIFW_ENV'))
+    define('CRIFW_ENV', 'production');
 /**
  * Set Plugin log path
  */
@@ -59,7 +53,13 @@ if (!defined('CRIFW_LOG_FILE_PATH')) {
     $path = ABSPATH . 'campaignrabbit.log';
     define('CRIFW_LOG_FILE_PATH', $path);
 }
-
+/**
+ * Set Plugin log path
+ */
+if (!defined('CRIFW_DEV_LOG_FILE_PATH')) {
+    $path = ABSPATH . 'dev_campaignrabbit.log';
+    define('CRIFW_DEV_LOG_FILE_PATH', $path);
+}
 /**
  * Check and abort if PHP version is is less them 5.6 and does not met the required woocommerce version
  */
@@ -84,14 +84,12 @@ register_activation_hook(__FILE__, function () {
         }
     }
 });
-
 /**
  * Check for required packages
  */
 if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
     return false;
 }
-
 require __DIR__ . '/vendor/autoload.php';
 
 use Crifw\Campaignrabbit\Main;

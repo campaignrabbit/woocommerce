@@ -15,7 +15,7 @@ class CampaignrabbitApi
      */
     function __construct($api_key, $secret_key)
     {
-        $this->api_url = "https://app.campaignrabbit.com/api/v1/";
+        $this->api_url = "https://api.campaignrabbit.com/v1/";
         $this->site_url = site_url();
         $this->app_id = $api_key;
         $this->secret_key = $secret_key;
@@ -25,7 +25,8 @@ class CampaignrabbitApi
     /**
      * tell campaignrabbit about orders going to sync
      */
-    function initiateSync(){
+    function initiateSync()
+    {
         $response = $this->request('POST', 'store/initiated_sync');
         if (isset($response->body->success) && $response->body->success)
             return true;
@@ -140,6 +141,34 @@ class CampaignrabbitApi
         } catch (\Exception $e) {
             $response = $e;
         }
+        $this->logResponse($url, $response, $data);
         return $response;
+    }
+
+    /**
+     * Create log file named campaignrabbit.log
+     * @param $url
+     * @param $response
+     * @param $data
+     */
+    function logResponse($url, $response, $data)
+    {
+        if (CRIFW_ENV == "development") {
+            $message = $url . ' -> REQUEST : ' . json_encode($data) . "\n RESPONSE : ";
+            if (is_array($response) || is_object($response)) {
+                $message .= json_encode($response);
+            } else {
+                $message .= $response;
+            }
+            $message .= "\n\n";
+            try {
+                $file = fopen(CRIFW_DEV_LOG_FILE_PATH, 'a');
+                $message = __('<b>Time : </b>') . current_time('mysql') . ' | ' . $message;
+                fwrite($file, $message);
+                fclose($file);
+            } catch (\Exception $e) {
+                echo $e->getMessage();
+            }
+        }
     }
 }
