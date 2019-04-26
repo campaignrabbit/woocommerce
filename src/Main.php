@@ -1,6 +1,7 @@
 <?php
 
 namespace Crifw\Campaignrabbit;
+
 if (!defined('ABSPATH')) exit;
 
 class Main
@@ -55,7 +56,6 @@ class Main
         add_action('woocommerce_order_status_failed', array($this->crifw, 'orderStatusUpdated'), 10, 1);
         add_action('woocommerce_order_status_cancelled', array($this->crifw, 'orderStatusUpdated'), 10, 1);
         add_action('woocommerce_order_status_pending', array($this->crifw, 'orderStatusUpdated'), 10, 1);
-
         add_action('woocommerce_order_status_on-hold', array($this->crifw, 'orderStatusUpdated'), 10, 1);
         add_action('woocommerce_order_status_processing', array($this->crifw, 'orderStatusUpdated'), 10, 1);
         add_action('woocommerce_order_status_refunded', array($this->crifw, 'orderStatusUpdated'), 10, 1);
@@ -71,7 +71,8 @@ class Main
      */
     function checkForPluginUpdates()
     {
-        \Puc_v4_Factory::buildUpdateChecker('https://github.com/campaignrabbit/woocommerce', CRIFW_PLUGIN_FILE);
+        $update_checker = \Puc_v4_Factory::buildUpdateChecker('https://github.com/campaignrabbit/woocommerce', CRIFW_PLUGIN_FILE);
+        $update_checker->getVcsApi()->enableReleaseAssets();
     }
 
     /**
