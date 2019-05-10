@@ -41,7 +41,7 @@ class RunCampaign
      */
     function enqueueScripts()
     {
-        if ($this->admin->isAppConnected()) {
+        if ($this->admin->isAppConnected() && !is_admin()) {
             $current_user = wp_get_current_user();
             $user_email = '';
             if (isset($current_user->user_email) && !empty($current_user->user_email)) {
@@ -232,8 +232,7 @@ class RunCampaign
         } catch (\Exception $e) {
             $response['error'] = $e->getMessage();
         }
-        echo json_encode($response);
-        die;
+        wp_send_json($response);
     }
 
     /**
@@ -292,8 +291,7 @@ class RunCampaign
             $response['dopatch'] = true;
         }
         $response['start'] = $start + $limit;
-        echo json_encode($response);
-        die;
+        wp_send_json($response);
     }
 
     /**
@@ -624,8 +622,7 @@ class RunCampaign
                 $response['error'] = __('We found entered API credentials were wrong!', CRIFW_TEXT_DOMAIN);
             }
         }
-        echo json_encode($response);
-        die;
+        wp_send_json($response);
     }
 
 }

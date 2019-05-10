@@ -32,6 +32,7 @@ class Settings
                 'tab_group' => 'campaignrabbit',
                 'tab_title' => __('Connection', CRIFW_TEXT_DOMAIN),
                 'icon_url' => 'dashicons-email-alt',
+                'position' => 56,
                 'save_button' => __('Save Changes', CRIFW_TEXT_DOMAIN)
             ));
             $app_settings->add_field(array(
