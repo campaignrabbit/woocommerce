@@ -695,7 +695,7 @@ class RunCampaign
                     $where_status = "post_status='pending'";
                 }
                 global $wpdb;
-                $query = "SELECT ID FROM {$wpdb->prefix}posts WHERE {$where_hook} AND {$where_status}";
+                $query = "SELECT ID FROM {$wpdb->prefix}posts WHERE {$where_hook} AND {$where_status} AND post_type='scheduled-action'";
                 $posts = $wpdb->get_results($query);
                 $res = true;
                 if (!empty($posts)) {

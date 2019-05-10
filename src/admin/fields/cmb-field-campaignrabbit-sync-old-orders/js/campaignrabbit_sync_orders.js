@@ -21,7 +21,7 @@
         var hook = $(this).data('hook');
         var path = $("#campaignrabbit_ajax_path").val();
         $(this).attr('disabled', true);
-        var msg_container = $("#ajax_message_container");
+        $(this).text('Processing Please Wait...');
         $.ajax({
             url: path,
             type: 'POST',

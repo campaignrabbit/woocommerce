@@ -54,10 +54,10 @@ class CMB2_Field_Campaignrabbit_Sync_old_orders
         <div>
             <?php
             global $wpdb;
-            $completed_order_results = $wpdb->get_row("SELECT count(ID) as completed FROM {$wpdb->prefix}posts WHERE (post_title LIKE '%campaignrabbit_process_order_queues%' OR post_title LIKE '%campaignrabbit_process_update_order_queues%') AND post_status='publish'", OBJECT);
-            $pending_order_results = $wpdb->get_row("SELECT count(ID) as pending FROM {$wpdb->prefix}posts WHERE (post_title LIKE '%campaignrabbit_process_order_queues%' OR post_title LIKE '%campaignrabbit_process_update_order_queues%') AND post_status='pending'", OBJECT);
-            $completed_customer_results = $wpdb->get_row("SELECT count(ID) as completed FROM {$wpdb->prefix}posts WHERE (post_title LIKE '%campaignrabbit_process_customer_queues%' OR post_title LIKE '%campaignrabbit_process_update_customer_queues%') AND post_status='publish'", OBJECT);
-            $pending_customer_results = $wpdb->get_row("SELECT count(ID) as pending FROM {$wpdb->prefix}posts WHERE (post_title LIKE '%campaignrabbit_process_customer_queues%' OR post_title LIKE '%campaignrabbit_process_update_customer_queues%') AND post_status='pending'", OBJECT);
+            $completed_order_results = $wpdb->get_row("SELECT count(ID) as completed FROM {$wpdb->prefix}posts WHERE (post_title LIKE '%campaignrabbit_process_order_queues%' OR post_title LIKE '%campaignrabbit_process_update_order_queues%') AND post_status='publish' AND post_type='scheduled-action'", OBJECT);
+            $pending_order_results = $wpdb->get_row("SELECT count(ID) as pending FROM {$wpdb->prefix}posts WHERE (post_title LIKE '%campaignrabbit_process_order_queues%' OR post_title LIKE '%campaignrabbit_process_update_order_queues%') AND post_status='pending' AND post_type='scheduled-action'", OBJECT);
+            $completed_customer_results = $wpdb->get_row("SELECT count(ID) as completed FROM {$wpdb->prefix}posts WHERE (post_title LIKE '%campaignrabbit_process_customer_queues%' OR post_title LIKE '%campaignrabbit_process_update_customer_queues%') AND post_status='publish' AND post_type='scheduled-action'", OBJECT);
+            $pending_customer_results = $wpdb->get_row("SELECT count(ID) as pending FROM {$wpdb->prefix}posts WHERE (post_title LIKE '%campaignrabbit_process_customer_queues%' OR post_title LIKE '%campaignrabbit_process_update_customer_queues%') AND post_status='pending' AND post_type='scheduled-action'", OBJECT);
             if (!empty($pending_order_results)) {
                 $count = $pending_order_results->pending;
                 if ($count > 0) {
