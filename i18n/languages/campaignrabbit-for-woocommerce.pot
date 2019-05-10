@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Campaignrabbit-for-woocommerce\n"
-"POT-Creation-Date: 2019-02-22 13:15+0530\n"
-"PO-Revision-Date: 2019-02-22 13:15+0530\n"
+"POT-Creation-Date: 2019-05-10 18:01+0530\n"
+"PO-Revision-Date: 2019-05-10 18:01+0530\n"
 "Last-Translator: \n"
 "Language-Team: Campaignrabbit\n"
 "Language: en\n"
@@ -33,87 +33,99 @@ msgstr ""
 msgid "But your Woocommerce version is "
 msgstr ""
 
-#: src/Main.php:72
+#: src/Main.php:87
 msgid "Woocommerce must be activated for Campaignrabbit-Woocommerce to work"
 msgstr ""
 
-#: src/Main.php:75
+#: src/Main.php:90
 msgid "Your woocommerce version is "
 msgstr ""
 
-#: src/Main.php:75
+#: src/Main.php:90
 msgid ""
 ". Some of the features of Campaignrabbit-Woocommerce will not work properly "
 "on this woocommerce version."
 msgstr ""
 
-#: src/RunCampaign.php:34 src/admin/Settings.php:73
+#: src/RunCampaign.php:33 src/admin/Settings.php:74
 msgid "Settings"
 msgstr ""
 
-#: src/RunCampaign.php:91
+#: src/RunCampaign.php:94
 msgid "<b>Error in creating customer  - </b>"
 msgstr ""
 
-#: src/RunCampaign.php:94
+#: src/RunCampaign.php:97
 msgid "<b>Customer created successfully with ID - </b>"
 msgstr ""
 
-#: src/RunCampaign.php:131
+#: src/RunCampaign.php:134
 msgid "<b>Error in updating customer  - </b>"
 msgstr ""
 
-#: src/RunCampaign.php:134
+#: src/RunCampaign.php:137
 msgid "<b>Customer updated successfully with ID - </b>"
 msgstr ""
 
-#: src/RunCampaign.php:157
+#: src/RunCampaign.php:160
 msgid "<b>Error in creating Order  - </b>"
 msgstr ""
 
-#: src/RunCampaign.php:160
+#: src/RunCampaign.php:163
 msgid "<b>Order created successfully with ID - </b>"
 msgstr ""
 
-#: src/RunCampaign.php:184
+#: src/RunCampaign.php:187
 msgid "<b>Error in updating Order  - </b>"
 msgstr ""
 
-#: src/RunCampaign.php:187
+#: src/RunCampaign.php:190
 msgid "<b>Order updated successfully - </b>"
 msgstr ""
 
-#: src/RunCampaign.php:206
+#: src/RunCampaign.php:209 src/library/CampaignrabbitApi.php:166
 msgid "<b>Time : </b>"
 msgstr ""
 
-#: src/RunCampaign.php:224
+#: src/RunCampaign.php:227
 msgid "Log cleared successfully!"
 msgstr ""
 
-#: src/RunCampaign.php:226
+#: src/RunCampaign.php:229
 msgid "There is no log to clear!"
 msgstr ""
 
-#: src/RunCampaign.php:284
+#: src/RunCampaign.php:286
 msgid "Sync initiated!"
 msgstr ""
 
-#: src/RunCampaign.php:526
+#: src/RunCampaign.php:662
 msgid "Please enter App-Id"
 msgstr ""
 
-#: src/RunCampaign.php:529
+#: src/RunCampaign.php:665
 msgid "Please enter Secret key"
 msgstr ""
 
-#: src/RunCampaign.php:534
+#: src/RunCampaign.php:670
 msgid "Successfully connected to Retainful"
 msgstr ""
 
-#: src/RunCampaign.php:536
+#: src/RunCampaign.php:672
 #: src/admin/fields/cmb-field-campaignrabbit-app/cmb-field-campaignrabbit-app.php:52
 msgid "We found entered API credentials were wrong!"
+msgstr ""
+
+#: src/RunCampaign.php:709
+msgid "Process completed"
+msgstr ""
+
+#: src/RunCampaign.php:711
+msgid "Error in processing"
+msgstr ""
+
+#: src/RunCampaign.php:714 src/RunCampaign.php:717
+msgid "Invalid request"
 msgstr ""
 
 #: src/admin/Settings.php:29
@@ -124,66 +136,66 @@ msgstr ""
 msgid "Connection"
 msgstr ""
 
-#: src/admin/Settings.php:35 src/admin/Settings.php:79
-#: src/admin/Settings.php:126
+#: src/admin/Settings.php:36 src/admin/Settings.php:80
+#: src/admin/Settings.php:127
 msgid "Save Changes"
 msgstr ""
 
-#: src/admin/Settings.php:38
+#: src/admin/Settings.php:39
 msgid "App ID"
 msgstr ""
 
-#: src/admin/Settings.php:45
+#: src/admin/Settings.php:46
 msgid "You can get your app id at CampaignRabbit Settings tab."
 msgstr ""
 
-#: src/admin/Settings.php:48
+#: src/admin/Settings.php:49
 msgid "Api Token"
 msgstr ""
 
-#: src/admin/Settings.php:54
+#: src/admin/Settings.php:55
 msgid "You can get your app token at CampaignRabbit Settings tab."
 msgstr ""
 
-#: src/admin/Settings.php:78
+#: src/admin/Settings.php:79
 msgid "Settings (Optional)"
 msgstr ""
 
-#: src/admin/Settings.php:83
+#: src/admin/Settings.php:84
 msgid "Synchronize Batch count"
 msgstr ""
 
-#: src/admin/Settings.php:84
+#: src/admin/Settings.php:85
 msgid "Select synchronize batch count for each request"
 msgstr ""
 
-#: src/admin/Settings.php:97
+#: src/admin/Settings.php:98
 msgid "Sync old orders"
 msgstr ""
 
-#: src/admin/Settings.php:101
+#: src/admin/Settings.php:102
 msgid "Click to synchronize existing users and orders"
 msgstr ""
 
-#: src/admin/Settings.php:102
+#: src/admin/Settings.php:103
 msgid ""
 "This step is optional. You can use this to synchronize orders that are made "
 "before you installed the Campaignrabbit"
 msgstr ""
 
-#: src/admin/Settings.php:109
+#: src/admin/Settings.php:110
 msgid "Enable Log"
 msgstr ""
 
-#: src/admin/Settings.php:112
+#: src/admin/Settings.php:113
 msgid "No"
 msgstr ""
 
-#: src/admin/Settings.php:113
+#: src/admin/Settings.php:114
 msgid "Yes"
 msgstr ""
 
-#: src/admin/Settings.php:120 src/admin/Settings.php:125
+#: src/admin/Settings.php:121 src/admin/Settings.php:126
 msgid "Logs"
 msgstr ""
 
@@ -215,34 +227,60 @@ msgstr ""
 msgid "There is no log to display!"
 msgstr ""
 
-#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:31
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:30
 msgid "Note : "
 msgstr ""
 
-#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:31
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:30
 msgid "You have total of "
 msgstr ""
 
-#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:31
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:30
 msgid " orders."
 msgstr ""
 
-#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:35
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:34
 msgid "To sync those orders, Please click the \"Synchronize\" button."
 msgstr ""
 
-#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:43
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:42
 msgid "Synchronize"
 msgstr ""
 
-#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:51
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:50
 msgid "orders successfully added to queue!"
 msgstr ""
 
-#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:52
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:51
 msgid "No orders were found to sync!"
 msgstr ""
 
-#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:53
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:52
 msgid " orders remaining to sync!"
+msgstr ""
+
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:65
+msgid "orders pending in queue "
+msgstr ""
+
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:68
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:93
+msgid "Terminate"
+msgstr ""
+
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:78
+msgid "orders processed in queue"
+msgstr ""
+
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:80
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:106
+msgid "Remove"
+msgstr ""
+
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:90
+msgid "customers pending in queue "
+msgstr ""
+
+#: src/admin/fields/cmb-field-campaignrabbit-sync-old-orders/cmb-field-campaignrabbit-sync-old-orders.php:103
+msgid "customers processed in queue "
 msgstr ""
