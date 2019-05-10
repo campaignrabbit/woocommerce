@@ -444,6 +444,7 @@ class RunCampaign
         } else {
             $post_customer = $this->createGuestUser();
         }
+        $this->logMessage(__(json_encode($post_customer), CRIFW_TEXT_DOMAIN));
 
         if ($post_customer) {
             as_schedule_single_action(time(), 'campaignrabbit_process_customer_queues', array('data' => $post_customer, 'validation' => true));
@@ -451,6 +452,20 @@ class RunCampaign
 
     }
 
+    public function AfterUserRoleIsChanged($user_id) {
+        $user = new \stdClass();
+        if (!empty($user_id) && is_numeric($user_id)) {
+            $user = get_userdata($user_id);
+        }
+
+        if (isset($user->ID) && $user->ID > 0) {
+            $post_customer = $this->createRegisteredUser($user);
+            $this->logMessage(__(json_encode($user->roles), CRIFW_TEXT_DOMAIN));
+            if ($post_customer) {
+                as_schedule_single_action(time(), 'campaignrabbit_process_customer_queues', array('data' => $post_customer, 'validation' => true));
+            }
+        }
+    }
     /**
      * Create registered user
      * @param $user

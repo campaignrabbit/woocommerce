@@ -61,6 +61,8 @@ class Main
         add_action('woocommerce_order_status_refunded', array($this->crifw, 'orderStatusUpdated'), 10, 1);
         //User changes
         add_action('user_register', array($this->crifw, 'newUserCreated'), 10, 1);
+        //make sure we capture a change in the user role.
+        add_action('set_user_role', array($this->crifw, 'AfterUserRoleIsChanged'), 10, 1);
         add_action('profile_update', array($this->crifw, 'oldUserUpdated'), 10, 2);
         //Enqueue scripts
         add_action('wp_footer', array($this->crifw, 'enqueueScripts'));
