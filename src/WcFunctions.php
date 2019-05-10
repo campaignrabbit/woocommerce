@@ -1,6 +1,7 @@
 <?php
 
 namespace Crifw\Campaignrabbit;
+
 if (!defined('ABSPATH')) exit;
 
 class WcFunctions
@@ -66,12 +67,71 @@ class WcFunctions
     /**
      * Function to get orders by condition
      * @param $args
-     * @return \stdClass|\WC_Order[]|null
+     * @return array|object|null
+     * @throws \Exception
      */
     function getOrders($args)
     {
-        if (function_exists('wc_get_orders')) {
-            return wc_get_orders($args);
+        if (class_exists('WC_Order_Query')) {
+            $arguments = array(
+                'orderby' => 'date',
+                'order' => 'ASC',
+            );
+            $query_options = array_merge($arguments, $args);
+            $query = new \WC_Order_Query($query_options);
+            if (method_exists($query, 'get_orders')) {
+                return $query->get_orders();
+            }
+        }
+        return NULL;
+    }
+
+    /**
+     * get the first order of the email
+     * @param $email
+     * @return array|object|null
+     * @throws \Exception
+     */
+    function getFirstOrderByEmail($email)
+    {
+        if (empty($email)) {
+            return NULL;
+        }
+        if (class_exists('WC_Order_Query')) {
+            $query = new \WC_Order_Query(array(
+                'orderby' => 'date',
+                'order' => 'ASC',
+                'limit' => 1
+            ));
+            $query->set('customer', $email);
+            if (method_exists($query, 'get_orders')) {
+                return $query->get_orders();
+            }
+        }
+        return NULL;
+    }
+
+    /**
+     * get the first order of the email
+     * @param $email
+     * @return array|object|null
+     * @throws \Exception
+     */
+    function getLastOrderByEmail($email)
+    {
+        if (empty($email)) {
+            return NULL;
+        }
+        if (class_exists('WC_Order_Query')) {
+            $query = new \WC_Order_Query(array(
+                'orderby' => 'date',
+                'order' => 'DESC',
+                'limit' => 1
+            ));
+            $query->set('customer', $email);
+            if (method_exists($query, 'get_orders')) {
+                return $query->get_orders();
+            }
         }
         return NULL;
     }
@@ -268,7 +328,6 @@ class WcFunctions
             } else {
                 return $order_status;
             }
-
         }
         return NULL;
     }
@@ -306,5 +365,4 @@ class WcFunctions
         }
         return NULL;
     }
-
 }

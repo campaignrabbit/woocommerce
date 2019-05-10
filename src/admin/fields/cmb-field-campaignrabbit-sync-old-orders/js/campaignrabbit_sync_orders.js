@@ -8,13 +8,29 @@
         var msg_container = $("#ajax_message_container");
         msg_container.html('');
         msg_container.hide();
-        if(parseInt(count)>0) {
+        if (parseInt(count) > 0) {
             doOrderSync(count, limit, 0);
-        }else{
+        } else {
             var msg = '<p>' + msg_container.data('noorder') + '</p>';
             msg_container.append(msg);
             msg_container.show();
         }
+    });
+    $(document).on('click', '.remove-from-queue-table', function () {
+        var remove = $(this).data('remove');
+        var hook = $(this).data('hook');
+        var path = $("#campaignrabbit_ajax_path").val();
+        $(this).attr('disabled', true);
+        var msg_container = $("#ajax_message_container");
+        $.ajax({
+            url: path,
+            type: 'POST',
+            dataType: "json",
+            data: {action: 'removeFromQueue', hook: hook, remove: remove},
+            success: function (response) {
+                window.location.reload();
+            }
+        });
     });
 
     function doOrderSync(count, limit, start) {

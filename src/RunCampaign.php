@@ -6,7 +6,6 @@ use Crifw\Campaignrabbit\Admin\Settings;
 
 class RunCampaign
 {
-
     public $admin, $wc_functions;
 
     function __construct()
@@ -349,10 +348,11 @@ class RunCampaign
         $billing = $this->wc_functions->getBillingDetails($order);
         $shipping = $this->wc_functions->getShippingDetails($order);
         $user = $this->wc_functions->getUser($order);
+        $order_email = $this->wc_functions->getOrderEmail($order);
         $order_details = array(
             'r_order_id' => $this->wc_functions->getOrderId($order),
             'r_order_ref' => $this->wc_functions->getOrderId($order),
-            'customer_email' => $this->wc_functions->getOrderEmail($order),
+            'customer_email' => $order_email,
             'customer_name' => $this->wc_functions->getOrderedUserName($order),
             'order_total' => $this->wc_functions->getOrderTotal($order),
             'meta' => $order_meta,
@@ -362,10 +362,60 @@ class RunCampaign
             'status' => strtolower($this->wc_functions->getOrderStatus($order)),
             'created_at' => $this->wc_functions->getOrderCreatedDate($order),
             'updated_at' => $this->wc_functions->getOrderModifiedDate($order),
-            'customer_created_at' => (isset($user->user_registered) && !empty($user->user_registered)) ? $user->user_registered : current_time('mysql'),
-            'customer_updated_at' => (isset($user->user_registered) && !empty($user->user_registered)) ? $user->user_registered : current_time('mysql')
+            'customer_created_at' => (isset($user->user_registered) && !empty($user->user_registered)) ? $user->user_registered : $this->getCustomerRegisterDate($order_email, $order),
+            'customer_updated_at' => (isset($user->user_registered) && !empty($user->user_registered)) ? $user->user_registered : $this->getCustomerModifiedDate($order_email, $order)
         );
         return $order_details;
+    }
+
+    /**
+     * get the first order of the customer
+     * @param $email
+     * @param $current_order
+     * @return null
+     */
+    function getCustomerRegisterDate($email, $current_order)
+    {
+        try {
+            $orders = $this->wc_functions->getFirstOrderByEmail($email);
+            $order_date = NULL;
+            if (!empty($orders)) {
+                foreach ($orders as $order) {
+                    $order_date = $this->wc_functions->getOrderCreatedDate($order);
+                }
+            }
+            if (empty($order_date)) {
+                $order_date = $this->wc_functions->getOrderCreatedDate($current_order);
+            }
+            return $order_date;
+        } catch (\Exception $e) {
+            return NULL;
+        }
+    }
+
+    /**
+     * get the Last order of the customer
+     * @param $email
+     * @param $current_order
+     * @return null
+     */
+    function getCustomerModifiedDate($email, $current_order)
+    {
+        try {
+            $orders = $this->wc_functions->getLastOrderByEmail($email);
+            $order_date = NULL;
+            if (!empty($orders)) {
+                foreach ($orders as $order) {
+                    $order_date = $this->wc_functions->getOrderCreatedDate($order);
+                }
+            }
+            if (empty($order_date)) {
+                $order_date = $this->wc_functions->getOrderCreatedDate($current_order);
+            }
+            return $order_date;
+        } catch (\Exception $e) {
+            return NULL;
+        }
     }
 
     /**
@@ -429,33 +479,31 @@ class RunCampaign
      */
     function newUserCreated($user_id)
     {
-
-
         $user = new \stdClass();
         if (!empty($user_id) && is_numeric($user_id)) {
             $user = get_userdata($user_id);
         }
-
-
         if (isset($user->ID) && $user->ID > 0) {
             $post_customer = $this->createRegisteredUser($user);
         } else {
             $post_customer = $this->createGuestUser();
         }
         $this->logMessage(__(json_encode($post_customer), CRIFW_TEXT_DOMAIN));
-
         if ($post_customer) {
             as_schedule_single_action(time(), 'campaignrabbit_process_customer_queues', array('data' => $post_customer, 'validation' => true));
         }
-
     }
 
-    public function AfterUserRoleIsChanged($user_id) {
+    /**
+     * When user role gets updated
+     * @param $user_id
+     */
+    public function AfterUserRoleIsChanged($user_id)
+    {
         $user = new \stdClass();
         if (!empty($user_id) && is_numeric($user_id)) {
             $user = get_userdata($user_id);
         }
-
         if (isset($user->ID) && $user->ID > 0) {
             $post_customer = $this->createRegisteredUser($user);
             $this->logMessage(__(json_encode($user->roles), CRIFW_TEXT_DOMAIN));
@@ -464,6 +512,7 @@ class RunCampaign
             }
         }
     }
+
     /**
      * Create registered user
      * @param $user
@@ -495,7 +544,7 @@ class RunCampaign
             'email' => $user->user_email,
             'name' => $name,
             'created_at' => current_time('mysql'),
-            // 'updated_at'=>current_time( 'mysql' ),
+            'updated_at' => current_time('mysql'),
             'meta' => $meta_array
         );
         return $post_customer;
@@ -535,7 +584,7 @@ class RunCampaign
                     'email' => isset($_POST['billing_email']) ? $_POST['billing_email'] : '',
                     'name' => $name,
                     'created_at' => current_time('mysql'),
-                    //   'updated_at'=>current_time( 'mysql' ),
+                    'updated_at' => current_time('mysql'),
                     'meta' => $meta_array
                 );
             }
@@ -589,11 +638,12 @@ class RunCampaign
                 'meta_value' => 'customer',
                 'meta_options' => ''
             ));
+            $order_email = $this->wc_functions->getOrderEmail($order);
             $customer_details = array(
-                'email' => $this->wc_functions->getOrderEmail($order),
+                'email' => $order_email,
                 'name' => $this->wc_functions->getOrderedUserName($order),
-                'created_at' => current_time('mysql'),
-                'updated_at' => current_time('mysql'),
+                'created_at' => $this->getCustomerRegisterDate($order_email, $order),
+                'updated_at' => $this->getCustomerModifiedDate($order_email, $order),
                 'meta' => $meta
             );
         }
@@ -625,4 +675,47 @@ class RunCampaign
         wp_send_json($response);
     }
 
+    /**
+     * Remove the scheduled actions
+     */
+    function removeFromQueue()
+    {
+        if (isset($_REQUEST['hook']) && isset($_REQUEST['remove'])) {
+            $hook = sanitize_text_field($_REQUEST['hook']);
+            $remove = sanitize_text_field($_REQUEST['remove']);
+            if (!empty($hook) && !empty($remove)) {
+                if ($hook == 'order') {
+                    $where_hook = "(post_title LIKE '%campaignrabbit_process_order_queues%' OR post_title LIKE '%campaignrabbit_process_update_order_queues%')";
+                } else {
+                    $where_hook = "(post_title LIKE '%campaignrabbit_process_customer_queues%' OR post_title LIKE '%campaignrabbit_process_update_customer_queues%')";
+                }
+                if ($remove == 'completed') {
+                    $where_status = "post_status='publish'";
+                } else {
+                    $where_status = "post_status='pending'";
+                }
+                global $wpdb;
+                $query = "SELECT ID FROM {$wpdb->prefix}posts WHERE {$where_hook} AND {$where_status}";
+                $posts = $wpdb->get_results($query);
+                $res = true;
+                if (!empty($posts)) {
+                    foreach ($posts as $post) {
+                        if (!wp_delete_post($post->ID, true)) {
+                            $res = false;
+                        }
+                    }
+                }
+                if ($res) {
+                    $response = array('error' => false, 'message' => __('Process completed', CRIFW_TEXT_DOMAIN));
+                } else {
+                    $response = array('error' => true, 'message' => __('Error in processing', CRIFW_TEXT_DOMAIN));
+                }
+            } else {
+                $response = array('error' => true, 'message' => __('Invalid request', CRIFW_TEXT_DOMAIN));
+            }
+        } else {
+            $response = array('error' => true, 'message' => __('Invalid request', CRIFW_TEXT_DOMAIN));
+        }
+        wp_send_json($response);
+    }
 }

@@ -45,6 +45,7 @@ class Main
         add_action('wp_ajax_validateCampaignRabbitAppKey', array($this->crifw, 'validateCampaignRabbitAppKey'));
         add_action('wp_ajax_syncOldOrdersWithCampaignrabbit', array($this->crifw, 'syncOldOrdersWithCampaignrabbit'));
         add_action('wp_ajax_clearCampaignrabbitLogs', array($this->crifw, 'clearCampaignrabbitLogs'));
+        add_action('wp_ajax_removeFromQueue', array($this->crifw, 'removeFromQueue'));
         //Process customer queue
         add_action('campaignrabbit_process_customer_queues', array($this->crifw, 'processCustomerQueue'), 10, 2);
         add_action('campaignrabbit_process_update_customer_queues', array($this->crifw, 'processUpdateCustomerQueue'), 10, 4);
