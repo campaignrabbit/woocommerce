@@ -245,16 +245,16 @@ class WcFunctions
             return array();
         return array(
             'first_name' => (method_exists($order, 'get_shipping_first_name') && !empty($order->get_shipping_first_name())) ? $order->get_shipping_first_name() : (method_exists($order, 'get_billing_first_name')) ? $order->get_billing_first_name() : NULL,
-            'last_name' => (method_exists($order, 'get_shipping_last_name') && !empty($order->get_shipping_last_name())) ? $order->get_shipping_last_name() : (method_exists($order, 'get_billing_first_name')) ? $order->get_billing_first_name() : NULL,
-            'company_name' => (method_exists($order, 'get_shipping_company') && !empty($order->get_shipping_company())) ? $order->get_shipping_company() : (method_exists($order, 'get_billing_first_name')) ? $order->get_billing_first_name() : NULL,
+            'last_name' => (method_exists($order, 'get_shipping_last_name') && !empty($order->get_shipping_last_name())) ? $order->get_shipping_last_name() : (method_exists($order, 'get_billing_last_name')) ? $order->get_billing_last_name() : NULL,
+            'company_name' => (method_exists($order, 'get_shipping_company') && !empty($order->get_shipping_company())) ? $order->get_shipping_company() : (method_exists($order, 'get_billing_company')) ? $order->get_billing_company() : NULL,
             'email' => (method_exists($order, 'get_billing_email')) ? $order->get_billing_email() : NULL,
             'mobile' => (method_exists($order, 'get_billing_phone')) ? $order->get_billing_phone() : NULL,
-            'address_1' => (method_exists($order, 'get_shipping_address_1') && !empty($order->get_shipping_address_1())) ? $order->get_shipping_address_1() : (method_exists($order, 'get_billing_first_name')) ? $order->get_billing_first_name() : NULL,
-            'address_2' => (method_exists($order, 'get_shipping_address_2') && !empty($order->get_shipping_address_2())) ? $order->get_shipping_address_2() : (method_exists($order, 'get_billing_first_name')) ? $order->get_billing_first_name() : NULL,
-            'city' => (method_exists($order, 'get_shipping_city') && !empty($order->get_shipping_city())) ? $order->get_shipping_city() : (method_exists($order, 'get_billing_first_name')) ? $order->get_billing_first_name() : NULL,
-            'state' => (method_exists($order, 'get_shipping_state') && !empty($order->get_shipping_state())) ? $order->get_shipping_state() : (method_exists($order, 'get_billing_first_name')) ? $order->get_billing_first_name() : NULL,
-            'country' => (method_exists($order, 'get_shipping_country') && !empty($order->get_shipping_country())) ? $order->get_shipping_country() : (method_exists($order, 'get_billing_first_name')) ? $order->get_billing_first_name() : NULL,
-            'zipcode' => (method_exists($order, 'get_shipping_postcode') && !empty($order->get_shipping_postcode())) ? $order->get_shipping_postcode() : (method_exists($order, 'get_billing_first_name')) ? $order->get_billing_first_name() : NULL
+            'address_1' => (method_exists($order, 'get_shipping_address_1') && !empty($order->get_shipping_address_1())) ? $order->get_shipping_address_1() : (method_exists($order, 'get_billing_address_1')) ? $order->get_billing_address_1() : NULL,
+            'address_2' => (method_exists($order, 'get_shipping_address_2') && !empty($order->get_shipping_address_2())) ? $order->get_shipping_address_2() : (method_exists($order, 'get_billing_address_2')) ? $order->get_billing_address_2() : NULL,
+            'city' => (method_exists($order, 'get_shipping_city') && !empty($order->get_shipping_city())) ? $order->get_shipping_city() : (method_exists($order, 'get_billing_city')) ? $order->get_billing_city() : NULL,
+            'state' => (method_exists($order, 'get_shipping_state') && !empty($order->get_shipping_state())) ? $order->get_shipping_state() : (method_exists($order, 'get_billing_state')) ? $order->get_billing_state() : NULL,
+            'country' => (method_exists($order, 'get_shipping_country') && !empty($order->get_shipping_country())) ? $order->get_shipping_country() : (method_exists($order, 'get_billing_country')) ? $order->get_billing_country() : NULL,
+            'zipcode' => (method_exists($order, 'get_shipping_postcode') && !empty($order->get_shipping_postcode())) ? $order->get_shipping_postcode() : (method_exists($order, 'get_billing_postcode')) ? $order->get_billing_postcode() : NULL
         );
     }
 
