@@ -5,7 +5,7 @@
  * Description: Campaignrabbit integration for WooCommerce
  * Author: Cartrabbit
  * Author URI: https://www.campaignrabbit.com
- * Version: 1.0.3
+ * Version: 1.0.4
  * Text Domain: campaignrabbit-for-woocommerce
  * Domain Path: /i18n/languages/
  * Plugin URI: https://www.campaignrabbit.com
@@ -23,7 +23,7 @@ if (!defined('CRIFW_TEXT_DOMAIN'))
  * Current version of our app
  */
 if (!defined('CRIFW_VERSION'))
-    define('CRIFW_VERSION', '1.0.3');
+    define('CRIFW_VERSION', '1.0.4');
 /**
  * Set base file URL
  */
