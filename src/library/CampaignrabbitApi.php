@@ -6,7 +6,7 @@ use Unirest\Request;
 
 class CampaignrabbitApi
 {
-    public $api_url, $site_url, $app_id, $secret_key;
+    public $api_url, $site_url, $app_id, $secret_key, $app_url;
 
     /**
      * CampaignrabbitApi constructor.
@@ -16,10 +16,24 @@ class CampaignrabbitApi
     function __construct($api_key, $secret_key)
     {
         $this->api_url = "https://api.campaignrabbit.com/v1/";
+        $this->app_url = "https://app.campaignrabbit.com/";
         $this->site_url = site_url();
         $this->app_id = $api_key;
         $this->secret_key = $secret_key;
         return $this;
+    }
+
+    /**
+     * get register or login link for connect
+     * @param $params
+     * @return string|null
+     */
+    function registerOrLoginUrl($params)
+    {
+        if (!empty($params)) {
+            return $this->app_url . '#/login_or_register?' . http_build_query($params);
+        }
+        return NULL;
     }
 
     /**

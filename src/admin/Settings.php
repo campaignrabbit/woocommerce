@@ -36,23 +36,16 @@ class Settings
                 'save_button' => __('Save Changes', CRIFW_TEXT_DOMAIN)
             ));
             $app_settings->add_field(array(
-                'name' => __('App ID', CRIFW_TEXT_DOMAIN),
                 'id' => CRIFW_PLUGIN_PREFIX . 'campaignrabbit_app_id',
-                'type' => 'text',
+                'type' => 'hidden',
                 'default' => '',
-                'after_field' => '<p style="color: red" id="app_id_error"></p>',
-                'attributes' => array('id' => 'campaignrabbit_app_id'),
-                'after' => '<style>#submit-cmb{display:none;}</style>',
-                'desc' => __('You can get your app id at CampaignRabbit Settings tab.', CRIFW_TEXT_DOMAIN)
+                'attributes' => array('id' => 'campaignrabbit_app_id')
             ));
             $app_settings->add_field(array(
-                'name' => __('Api Token', CRIFW_TEXT_DOMAIN),
                 'id' => CRIFW_PLUGIN_PREFIX . 'campaignrabbit_api_token',
-                'type' => 'text',
+                'type' => 'hidden',
                 'default' => '',
-                'after_field' => '<p style="color: red" id="secret_key_error"></p>',
-                'attributes' => array('id' => 'campaignrabbit_secret_key'),
-                'desc' => __('You can get your app token at CampaignRabbit Settings tab.', CRIFW_TEXT_DOMAIN)
+                'attributes' => array('id' => 'campaignrabbit_secret_key')
             ));
             $app_settings->add_field(array(
                 'id' => CRIFW_PLUGIN_PREFIX . 'is_campaignrabbit_connected',
@@ -61,7 +54,6 @@ class Settings
                 'attributes' => array('id' => 'is_campaignrabbit_app_connected')
             ));
             $app_settings->add_field(array(
-                'name' => '&nbsp;',
                 'id' => CRIFW_PLUGIN_PREFIX . 'campaignrabbit_app',
                 'type' => 'campaignrabbit_app',
                 'default' => '',

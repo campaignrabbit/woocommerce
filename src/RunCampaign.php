@@ -676,6 +676,34 @@ class RunCampaign
     }
 
     /**
+     * Auto connect api
+     */
+    function connectApp()
+    {
+        if (isset($_REQUEST['api']) && isset($_REQUEST['connect']) && $_REQUEST['app_id'] && $_REQUEST['api_token']) {
+            $api = sanitize_text_field($_REQUEST['api']);
+            $api_token = sanitize_text_field($_REQUEST['api_token']);
+            $app_id = sanitize_text_field($_REQUEST['app_id']);
+            $connect = sanitize_text_field($_REQUEST['connect']);
+            if (!empty($api) && $api == 'campaignrabbit' && !empty($connect) && $connect == 'complete' && !empty($app_id) && !empty($api_token)) {
+                $is_api_enabled = $this->admin->isApiEnabled($app_id, $api_token);
+                if ($is_api_enabled) {
+                    $connected = 1;
+                } else {
+                    $connected = 0;
+                }
+                $update = array(
+                    CRIFW_PLUGIN_PREFIX . 'campaignrabbit_app_id' => $app_id,
+                    CRIFW_PLUGIN_PREFIX . 'campaignrabbit_api_token' => $api_token,
+                    CRIFW_PLUGIN_PREFIX . 'is_campaignrabbit_connected' => $connected
+                );
+                update_option('campaignrabbit', $update);
+                wp_safe_redirect(admin_url('admin.php?page=campaignrabbit'));
+            }
+        }
+    }
+
+    /**
      * Remove the scheduled actions
      */
     function removeFromQueue()

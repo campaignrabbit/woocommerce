@@ -39,6 +39,7 @@ class Main
         add_action('init', function () {
             $this->crifw->init();
         });
+        add_action('wp', array($this->crifw, 'connectApp'));
         //Settings link
         add_filter('plugin_action_links_' . CRIFW_BASE_FILE, array($this->crifw, 'pluginActionLinks'));
         //Validate key
